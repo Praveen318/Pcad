@@ -16,13 +16,13 @@ public class UserInfoUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private Employeerepository repository;
-	//overriding a method of interface UserDetailsService to verify username
+
+	// overriding a method of interface UserDetailsService to verify username
 	@Override
 	public UserDetails loadUserByUsername(String mobile) throws UsernameNotFoundException {
-		Optional<Employee> userInfo=repository.findByMobile(mobile);
-		return userInfo.map(UserInfoUserDetails::new)
-			.orElseThrow(()->new UsernameNotFoundException(
-					"No employee with mobilenumber: " +mobile+" found"));
+		Optional<Employee> userInfo = repository.findByMobile(mobile);
+		return userInfo.map(UserInfoUserDetails::new).orElseThrow(
+				() -> new UsernameNotFoundException("No employee with mobilenumber: " + mobile + " found"));
 	}
 
 }

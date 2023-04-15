@@ -16,30 +16,28 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    
-    //Overriding authenticate method of AuthenticationProvider interface
-    @Override
-    public Authentication authenticate(Authentication authentication)
-    		throws AuthenticationException {
-        String usermobile = authentication.getName();
-        UserDetails user = userDetailsService.loadUserByUsername(usermobile);
-        String password = authentication.getCredentials().toString();
-        
-        //password verification
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new BadCredentialsException("Incorrect password");
-        }
-        return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
-    }
+	@Autowired
+	private UserDetailsService userDetailsService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
+	// Overriding authenticate method of AuthenticationProvider interface
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		String usermobile = authentication.getName();
+		UserDetails user = userDetailsService.loadUserByUsername(usermobile);
+		String password = authentication.getCredentials().toString();
+
+		// password verification
+		if (!passwordEncoder.matches(password, user.getPassword())) {
+			throw new BadCredentialsException("Incorrect password");
+		}
+		return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
+	}
 
 	@Override
-    public boolean supports(Class<?> authentication) {
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
-    }
+	public boolean supports(Class<?> authentication) {
+		return authentication.equals(UsernamePasswordAuthenticationToken.class);
+	}
 
 }

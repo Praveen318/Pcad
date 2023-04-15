@@ -9,12 +9,13 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-@Target({ElementType.FIELD})
+@Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = com.example.demo.Validator.MobileNumberValidator.class)
 public @interface MobileNumber {
-    String message() default "Enter valid 10 digit mobile number";
-   Class<?>[] groups() default {};
-   Class<? extends Payload>[] payload() default {};
-}
+	String message() default "Enter valid 10 digit mobile number";
 
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
+}

@@ -15,22 +15,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class DataReq {
-		@NotBlank(message="Enter a vaild name")
-		@Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain only alphabets")
-		private String name;
-		@MobileNumber
-		private String mobile;		
-		@Email(message="Enter a valid email")
-		private String email;
-		@Pattern(message="Password must atleast contain a capital letter[A-Z],"
-				+ " a small letter(a-z), a special character[!@#&()–[{}]:;',?/*~$^+=<>]"
-				+ " and a number[0-9] and must be 6 character long",
-				regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])"
-						+ "(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{6,}$")
-		private String password;
-		@NotBlank(message="Enter a vaild code")
-		private String entryexitcode;
-		private String status="Logged_out"; 
-		@NotBlank(message="Enter Valid Role")
-		private String roles;
+	@NotBlank(message = "Enter a vaild name")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Name must contain only alphabets")
+	private String name;
+	@MobileNumber
+	private String mobile;
+	@Email(message = "Enter a valid email")
+	private String email;
+	@Pattern(message = "Password must atleast contain a capital letter[A-Z],"
+			+ " a small letter(a-z), a special character[!@#&()–[{}]:;',?/*~$^+=<>]"
+			+ " and a number[0-9] and must be 6 character long", regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])"
+					+ "(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{6,}$")
+	private String password;
+	@NotBlank(message = "Enter a vaild code")
+	private String entryexitcode;
+	private String status = "Logged_out";
+	@NotBlank(message = "Enter Valid Role")
+	private String roles;
 }

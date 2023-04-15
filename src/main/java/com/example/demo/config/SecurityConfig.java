@@ -1,6 +1,5 @@
 package com.example.demo.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.example.demo.filter.JwtAuthFilter;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -25,34 +23,27 @@ public class SecurityConfig {
 	private JwtAuthFilter authFilter;
 	@Autowired
 	private CustomAuthenticationProvider customAuthenticationProvider;
-	
-	//defining the security rules for incoming HTTP requests
-    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable()
-        		.authorizeHttpRequests()
-        		.requestMatchers("/pcad/welcome","/pcad/EntryExit","/pcad/Login").permitAll()
-        		.and()
-        		.authorizeHttpRequests().requestMatchers("/pcad/**")
-        		.authenticated().and()
-        		.sessionManagement()
-        		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        		.and()
-        		.authenticationProvider(customAuthenticationProvider)
-        		.addFilterBefore(authFilter,UsernamePasswordAuthenticationFilter.class)
-        		.build();
-        } 
-    
-    //defining the authentication mechanism used for user authentication
-    @Bean 
-    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-    return config.getAuthenticationManager();
-    }
-    
-    
-    //Builder object used to configure the AuthenticationManager
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(customAuthenticationProvider);
-    }
+
+	// defining the security rules for incoming HTTP requests
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		return http.csrf().disable().authorizeHttpRequests()
+				.requestMatchers("/pcad/welcome", "/pcad/EntryExit", "/pcad/Login").permitAll().and()
+				.authorizeHttpRequests().requestMatchers("/pcad/**").authenticated().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.authenticationProvider(customAuthenticationProvider)
+				.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).build();
+	}
+
+	// defining the authentication mechanism used for user authentication
+	@Bean
+	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
+
+	// Builder object used to configure the AuthenticationManager
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(customAuthenticationProvider);
+	}
 }

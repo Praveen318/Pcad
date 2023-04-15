@@ -15,21 +15,20 @@ import com.example.demo.entity.Employee;
 by implementing UserDetails interface*/
 
 @SuppressWarnings("serial")
-public class UserInfoUserDetails implements UserDetails{
+public class UserInfoUserDetails implements UserDetails {
 
 	private String mobile;
 	private String password;
 	private List<GrantedAuthority> authorities;
-	
-	public UserInfoUserDetails(Employee employee)
-	{
-		mobile=employee.getMobile();
-		password=employee.getPassword();
-		authorities= Arrays.stream(employee.getRoles().split(","))
-					.map(SimpleGrantedAuthority::new)
-					.collect(Collectors.toList());
-					
+
+	public UserInfoUserDetails(Employee employee) {
+		mobile = employee.getMobile();
+		password = employee.getPassword();
+		authorities = Arrays.stream(employee.getRoles().split(",")).map(SimpleGrantedAuthority::new)
+				.collect(Collectors.toList());
+
 	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
